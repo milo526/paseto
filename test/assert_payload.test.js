@@ -1,8 +1,8 @@
 const test = require('ava')
 
-const ms = require('../lib/help/ms')
+const { ms } = require('../lib/help/ms')
 const errors = require('../lib/errors')
-const assertPayload = require('../lib/help/assert_payload')
+const { assertPayload } = require('../lib/help/assert_payload')
 
 test('now not a Date object', t => {
   t.throws(
@@ -33,7 +33,7 @@ Object.entries({
   test(`${option} mismatch`, t => {
     t.throws(
       () => assertPayload({ [option]: 'foo' }, {}),
-      { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: `${option} mismatch` }
+      { code: 'ERR_PASETO_CLAIM_INVALID', message: `${option} mismatch` }
     )
   })
 
@@ -44,7 +44,7 @@ Object.entries({
   test(`payload.${claim} must be a string`, t => {
     t.throws(
       () => assertPayload({}, { [claim]: 1 }),
-      { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: `payload.${claim} must be a string` }
+      { code: 'ERR_PASETO_CLAIM_INVALID', message: `payload.${claim} must be a string` }
     )
   })
 })
@@ -53,14 +53,14 @@ Object.entries({
   test(`payload.${claim} must be a string`, t => {
     t.throws(
       () => assertPayload({}, { [claim]: 1 }),
-      { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: `payload.${claim} must be a string` }
+      { code: 'ERR_PASETO_CLAIM_INVALID', message: `payload.${claim} must be a string` }
     )
   })
 
   test(`payload.${claim} must be an ISO8601 string`, t => {
     t.throws(
       () => assertPayload({}, { [claim]: 'foo' }),
-      { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: `payload.${claim} must be a valid ISO8601 string` }
+      { code: 'ERR_PASETO_CLAIM_INVALID', message: `payload.${claim} must be a valid ISO8601 string` }
     )
   })
 })
@@ -68,7 +68,7 @@ Object.entries({
 test('iat in the future', t => {
   t.throws(
     () => assertPayload({ }, { iat: new Date(Date.now() + 1000).toISOString() }),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'token issued in the future' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'token issued in the future' }
   )
 })
 
@@ -89,7 +89,7 @@ test('iat in the future (clockTolerance not enough)', t => {
   const now = new Date()
   t.throws(
     () => assertPayload({ now, clockTolerance: '1s' }, { iat: new Date(now.getTime() + 1001).toISOString() }),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'token issued in the future' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'token issued in the future' }
   )
 })
 
@@ -123,7 +123,7 @@ test('exp in the past (clockTolerance not enough)', t => {
   const now = new Date()
   t.throws(
     () => assertPayload({ now, clockTolerance: '1s' }, { exp: new Date(now.getTime() - 1001).toISOString() }),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'token is expired' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'token is expired' }
   )
 })
 
@@ -137,7 +137,7 @@ test('exp exactly now', t => {
   const now = new Date()
   t.throws(
     () => assertPayload({ now }, { exp: now.toISOString() }),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'token is expired' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'token is expired' }
   )
 })
 
@@ -158,7 +158,7 @@ test('nbf in the future (clockTolerance not enough)', t => {
   const now = new Date()
   t.throws(
     () => assertPayload({ now, clockTolerance: '1s' }, { nbf: new Date(now.getTime() + 1001).toISOString() }),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'token is not active yet' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'token is not active yet' }
   )
 })
 
@@ -197,7 +197,7 @@ test('blank payload, maxTokenAge', t => {
 test('payload missing iat, maxTokenAge', t => {
   t.throws(
     () => assertPayload({ maxTokenAge: '1d' }, {}),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'missing iat claim' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'missing iat claim' }
   )
 })
 
@@ -208,6 +208,6 @@ test('maxTokenAge passed', t => {
 test('maxTokenAge exceeded', t => {
   t.throws(
     () => assertPayload({ maxTokenAge: '59m' }, { iat: new Date(Date.now() - ms('60m')).toISOString() }),
-    { instanceOf: errors.PasetoClaimInvalid, code: 'ERR_PASETO_CLAIM_INVALID', message: 'maxTokenAge exceeded' }
+    { code: 'ERR_PASETO_CLAIM_INVALID', message: 'maxTokenAge exceeded' }
   )
 })

@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const parse = require('../lib/help/parse_paseto_payload')
+const { parse } = require('../lib/help/parse_paseto_payload')
 const errors = require('../lib/errors')
 
 test('not a valid JSON', t => {

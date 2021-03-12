@@ -42,7 +42,7 @@ import * as paseto from './index.d';
       issuer: 'string',
       maxTokenAge: '5m',
       now: new Date(),
-      subject: 'string',
+      subject: 'string'
     })
   }
   {
@@ -86,7 +86,7 @@ import * as paseto from './index.d';
       issuer: 'string',
       maxTokenAge: '5m',
       now: new Date(),
-      subject: 'string',
+      subject: 'string'
     })
   }
 
@@ -131,7 +131,7 @@ import * as paseto from './index.d';
       issuer: 'string',
       maxTokenAge: '5m',
       now: new Date(),
-      subject: 'string',
+      subject: 'string'
     })
   }
   {
@@ -175,7 +175,7 @@ import * as paseto from './index.d';
       issuer: 'string',
       maxTokenAge: '5m',
       now: new Date(),
-      subject: 'string',
+      subject: 'string'
     })
   }
 })()

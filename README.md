@@ -1,3 +1,5 @@
+> This repository is not production-ready and therefore not published. Please refer to the original repository for production uses.
+
 # paseto
 
 > [PASETO](https://paseto.io): <strong>P</strong>latform-<strong>A</strong>gnostic <strong>SE</strong>curity <strong>TO</strong>kens for Node.js with minimal dependencies

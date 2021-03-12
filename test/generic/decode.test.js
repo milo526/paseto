@@ -1,6 +1,7 @@
 const test = require('ava')
 
-const { decode, errors } = require('../../lib')
+const { errors } = require('../../lib')
+const { decode } = require('../../lib')
 
 test('decode input must be a string', t => {
   t.throws(

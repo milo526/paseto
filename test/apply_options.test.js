@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const applyOptions = require('../lib/help/apply_options')
+const { applyOptions } = require('../lib/help/apply_options')
 
 test('options.iat must be a boolean', t => {
   t.throws(

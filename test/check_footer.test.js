@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const checkFooter = require('../lib/help/check_footer')
+const { checkFooter } = require('../lib/help/check_footer')
 
 test('when not a buffer, string or an object', t => {
   t.throws(

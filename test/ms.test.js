@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const secs = require('../lib/help/ms')
+const { ms: secs } = require('../lib/help/ms')
 
 const values = {
   sec: 1000,

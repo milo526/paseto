@@ -1,6 +1,5 @@
 const test = require('ava')
 const crypto = require('crypto')
-
 const { V1: { encrypt, decrypt, generateKey }, errors } = require('../../lib')
 
 ;[Buffer.from('foo'), 'foo', { kid: 'foo' }].forEach((footer) => {
